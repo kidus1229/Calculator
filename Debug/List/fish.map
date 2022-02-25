@@ -1,0 +1,259 @@
+###############################################################################
+#
+# IAR ELF Linker V9.10.1.308/W64 for ARM                  25/Feb/2022  23:22:55
+# Copyright 2007-2021 IAR Systems AB.
+#
+#    Output file  =  E:\Intreface\Debug\Exe\fish.out_nochecksum
+#    Map file     =  E:\Intreface\Debug\List\fish.map
+#    Command line =
+#        -f E:\Intreface\Debug\Exe\fish.out_nochecksum.rsp
+#        (E:\Intreface\Debug\Obj\locker.o E:\Intreface\Debug\Obj\system.o
+#        --no_out_extension -o E:\Intreface\Debug\Exe\fish.out_nochecksum --map
+#        E:\Intreface\Debug\List\fish.map --config
+#        E:\Intreface\config\LPC2148_Flash.icf --semihosting --entry
+#        __iar_program_start --vfe --text_out locale)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because no calls to memory allocation
+functions were found in the application outside of system library
+functions, and there are calls to deallocation functions in the
+application.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x0 { ro section .intvec };
+"P1":  place in [from 0x44 to 0x7'ffff] { ro };
+define block CSTACK with size = 512, alignment = 8 { };
+define block SVC_STACK with size = 32, alignment = 8 { };
+define block IRQ_STACK with size = 256, alignment = 8 { };
+define block FIQ_STACK with size = 256, alignment = 8 { };
+define block UND_STACK with size = 16, alignment = 8 { };
+define block ABT_STACK with size = 16, alignment = 8 { };
+define block HEAP with size = 1'280, alignment = 8 { };
+"P2":  place in [from 0x4000'0000 to 0x4000'7fff] {
+          rw, block CSTACK, block SVC_STACK, block IRQ_STACK, block FIQ_STACK,
+          block UND_STACK, block ABT_STACK, block HEAP };
+initialize by copy { rw, ro section .sinetable, ro section .fiqisr };
+
+  Section            Kind         Address   Size  Object
+  -------            ----         -------   ----  ------
+"A0":                                       0x3c
+  .intvec            ro code          0x0   0x3c  cstartup.o [4]
+                                   - 0x3c   0x3c
+
+"P1":                                      0xbdf
+  .text              ro code         0x44  0x60c  locker.o [1]
+  Veneer             ro code        0x650    0x4  - Linker created -
+  .text              ro code        0x654  0x1d4  I32DivMod.o [4]
+  Veneer             ro code        0x828   0x10  - Linker created -
+  .text              ro code        0x838  0x162  iar_Stoulx.o [2]
+  .text              ro code        0x99a   0x42  packbits_init_single.o [4]
+  .text              ro code        0x9dc    0x4  IntDivZer.o [4]
+  Veneer             ro code        0x9e0    0x4  - Linker created -
+  .text              ro code        0x9e4   0x94  memchr.o [4]
+  .text              ro code        0xa78   0x58  cstartup.o [4]
+  Veneer             ro code        0xad0    0xc  - Linker created -
+  Veneer             ro code        0xadc    0xc  - Linker created -
+  Veneer             ro code        0xae8    0xc  - Linker created -
+  Veneer             ro code        0xaf4    0xc  - Linker created -
+  .text              ro code        0xb00   0x30  cmain.o [4]
+  .text              ro code        0xb30    0x4  low_level_init.o [2]
+  .text              ro code        0xb34   0x32  data_init.o [4]
+  .text              ro code        0xb66    0xa  exit.o [2]
+  .text              ro code        0xb70   0x20  exit.o [5]
+  Veneer             ro code        0xb90    0x4  - Linker created -
+  .text              ro code        0xb94   0x10  cexit.o [4]
+  .rodata            const          0xba4   0x50  iar_Stoulx.o [2]
+  .iar.init_table    const          0xbf4   0x10  - Linker created -
+  .rodata            const          0xc04   0x10  locker.o [1]
+  .text              ro code        0xc14    0x4  vectortrap.o [4]
+  .text              ro code        0xc18    0x4  xreturnswi.o [5]
+  .rodata            const          0xc1c    0x0  packbits_init_single.o [4]
+  Initializer bytes  const          0xc1c    0x7  <for P2-1>
+                                  - 0xc23  0xbdf
+
+"P2", part 1 of 2:                          0x26
+  P2-1                        0x4000'0000   0x26  <Init block>
+    .data            inited   0x4000'0000    0x4  locker.o [1]
+    .bss             inited   0x4000'0004    0xc  locker.o [1]
+    .bss             inited   0x4000'0010    0xc  locker.o [1]
+    .bss             inited   0x4000'001c    0x4  locker.o [1]
+    .bss             inited   0x4000'0020    0x4  locker.o [1]
+    .data            inited   0x4000'0024    0x1  locker.o [1]
+    .bss             inited   0x4000'0025    0x1  locker.o [1]
+                            - 0x4000'0026   0x26
+
+"P2", part 2 of 2:                         0x400
+  CSTACK                      0x4000'0028  0x200  <Block>
+    CSTACK           uninit   0x4000'0028  0x200  <Block tail>
+  IRQ_STACK                   0x4000'0228  0x100  <Block>
+    IRQ_STACK        uninit   0x4000'0228  0x100  <Block tail>
+  FIQ_STACK                   0x4000'0328  0x100  <Block>
+    FIQ_STACK        uninit   0x4000'0328  0x100  <Block tail>
+                            - 0x4000'0428  0x400
+
+Unused ranges:
+
+         From           To      Size
+         ----           --      ----
+        0xc23     0x7'ffff  0x7'f3dd
+  0x4000'0026  0x4000'0027       0x2
+  0x4000'0428  0x4000'7fff    0x7bd8
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Copy/packbits (__iar_packbits_init_single3)
+    1 source range, total size 0x7 (18% of destination):
+                0xc1c   0x7
+    1 destination range, total size 0x26:
+          0x4000'0000  0x26
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                  ro code  ro data  rw data
+    ------                  -------  -------  -------
+command line/config:
+    -------------------------------------------------
+    Total:
+
+E:\Intreface\Debug\Obj: [1]
+    locker.o                  1'548       23       38
+    -------------------------------------------------
+    Total:                    1'548       23       38
+
+dl4t_tln.a: [2]
+    exit.o                       10
+    iar_Stoulx.o                354       80
+    low_level_init.o              4
+    -------------------------------------------------
+    Total:                      368       80
+
+m4t_al.a: [3]
+    -------------------------------------------------
+    Total:
+
+rt4t_al.a: [4]
+    I32DivMod.o                 468
+    IntDivZer.o                   4
+    cexit.o                      16
+    cmain.o                      48
+    cstartup.o                  148
+    data_init.o                  50
+    memchr.o                    148
+    packbits_init_single.o       66
+    vectortrap.o                  4
+    -------------------------------------------------
+    Total:                      952
+
+shs_l.a: [5]
+    exit.o                       32
+    xreturnswi.o                  4
+    -------------------------------------------------
+    Total:                       36
+
+    Linker created               76       16    1'024
+-----------------------------------------------------
+    Grand Total:              2'980      119    1'062
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address   Size  Type      Object
+-----                       -------   ----  ----      ------
+.iar.init_table$$Base         0xbf4          --   Gb  - Linker created -
+.iar.init_table$$Limit        0xc04          --   Gb  - Linker created -
+?main                         0xb00         Code  Gb  cmain.o [4]
+Abort_Handler                 0xc14         Code  Wk  vectortrap.o [4]
+CSTACK$$Base            0x4000'0028          --   Gb  - Linker created -
+CSTACK$$Limit           0x4000'0228          --   Gb  - Linker created -
+FIQ_Handler                   0xc14         Code  Wk  vectortrap.o [4]
+FIQ_STACK$$Base         0x4000'0328          --   Gb  - Linker created -
+FIQ_STACK$$Limit        0x4000'0428          --   Gb  - Linker created -
+GET_RESULT                    0x235   0x8c  Code  Gb  locker.o [1]
+IRQ_Handler                   0xc14         Code  Wk  vectortrap.o [4]
+IRQ_STACK$$Base         0x4000'0228          --   Gb  - Linker created -
+IRQ_STACK$$Limit        0x4000'0328          --   Gb  - Linker created -
+LCD_CHAR                      0x1bb   0x5c  Code  Gb  locker.o [1]
+LCD_CMD                        0x75   0x7c  Code  Gb  locker.o [1]
+LCD_INIT                       0xf1   0x36  Code  Gb  locker.o [1]
+LCD_STRING                    0x127   0x94  Code  Gb  locker.o [1]
+Prefetch_Handler              0xc14         Code  Wk  vectortrap.o [4]
+Region$$Table$$Base           0xbf4          --   Gb  - Linker created -
+Region$$Table$$Limit          0xc04          --   Gb  - Linker created -
+SWI_Handler                   0xc14         Code  Wk  vectortrap.o [4]
+Undefined_Handler             0xc14         Code  Wk  vectortrap.o [4]
+__aeabi_idiv                  0x654         Code  Gb  I32DivMod.o [4]
+__aeabi_idiv0                 0x9dc         Code  Gb  IntDivZer.o [4]
+__aeabi_idivmod               0x654         Code  Gb  I32DivMod.o [4]
+__aeabi_uidiv                 0x684         Code  Gb  I32DivMod.o [4]
+__aeabi_uidivmod              0x684         Code  Gb  I32DivMod.o [4]
+__cmain                       0xb00         Code  Gb  cmain.o [4]
+__exit                        0xb70   0x20  Code  Gb  exit.o [5]
+__iar_Memchr                  0x9e4         Code  Gb  memchr.o [4]
+__iar_Stoulx                  0x839  0x150  Code  Gb  iar_Stoulx.o [2]
+__iar_data_init3              0xb35   0x30  Code  Gb  data_init.o [4]
+__iar_packbits_init_single3
+                              0x99b   0x42  Code  Gb  packbits_init_single.o [4]
+__iar_program_start           0xa78         Code  Gb  cstartup.o [4]
+__iar_return_from_swi         0xc18    0x4  Code  Gb  xreturnswi.o [5]
+__low_level_init              0xb31    0x4  Code  Gb  low_level_init.o [2]
+__vector                        0x0         Data  Gb  cstartup.o [4]
+_call_main                    0xb18         Code  Gb  cmain.o [4]
+_exit                         0xb94         Code  Gb  cexit.o [4]
+atoi                          0x989    0x4  Code  Gb  iar_Stoulx.o [2]
+delay_ms                       0x45   0x30  Code  Gb  locker.o [1]
+digits                        0xbcc   0x28  Data  Lc  iar_Stoulx.o [2]
+display                 0x4000'0020    0x4  Data  Gb  locker.o [1]
+exit                          0xb67    0xa  Code  Gb  exit.o [2]
+get_key                       0x2c1  0x1d8  Code  Gb  locker.o [1]
+main                          0x4a9  0x188  Code  Gb  locker.o [1]
+memchr                        0x9e4         Code  Gb  memchr.o [4]
+ndigs                         0xba4   0x28  Data  Lc  iar_Stoulx.o [2]
+num                     0x4000'0010    0xc  Data  Gb  locker.o [1]
+op                      0x4000'0025    0x1  Data  Gb  locker.o [1]
+opp                     0x4000'0024    0x1  Data  Gb  locker.o [1]
+res                     0x4000'0004    0xc  Data  Gb  locker.o [1]
+result                  0x4000'0000    0x4  Data  Gb  locker.o [1]
+val                     0x4000'001c    0x4  Data  Gb  locker.o [1]
+
+
+[1] = E:\Intreface\Debug\Obj
+[2] = dl4t_tln.a
+[3] = m4t_al.a
+[4] = rt4t_al.a
+[5] = shs_l.a
+
+  2'980 bytes of readonly  code memory
+    119 bytes of readonly  data memory
+  1'062 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,51 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\XclFileGenerator.exe $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in+++C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\XclFileGenerator.exe $flags
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\SourceIndexer.exe $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out+++C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\SourceIndexer.exe $flags
+
+rule MAKEBROWSE
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\makeBrowseData.exe $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out+++C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\makeBrowseData.exe $flags
+
+rule PDBLINK
+  command = C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\PbdLink.exe $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out+++C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\PbdLink.exe $flags
+
+
+
+#Build steps
+build E$:\Intreface\Debug\BrowseInfo\locker.xcl : COMPILER_XCL 
+  xclcommand = -source_file E$:\Intreface\locker.c -xcl_file E$:\Intreface\Debug\BrowseInfo\locker.xcl -macro_file E$:\Intreface\Debug\BrowseInfo\locker.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = E$:\Intreface\locker.c -o E$:\Intreface\Debug\Obj\ --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=ARM7TDMI-S -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Normal.h" --cpu_mode thumb -Ol --predef_macros E$:\Intreface\Debug\BrowseInfo\locker.tmp
+  rspfile_name = E$:\Intreface\Debug\BrowseInfo\locker.xcl.rsp
+
+build E$:\Intreface\Debug\BrowseInfo\system.xcl : COMPILER_XCL 
+  xclcommand = -source_file E$:\Intreface\system.c -xcl_file E$:\Intreface\Debug\BrowseInfo\system.xcl -macro_file E$:\Intreface\Debug\BrowseInfo\system.tmp -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = E$:\Intreface\system.c -o E$:\Intreface\Debug\Obj\ --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=ARM7TDMI-S -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Normal.h" --cpu_mode thumb -Ol --predef_macros E$:\Intreface\Debug\BrowseInfo\system.tmp
+  rspfile_name = E$:\Intreface\Debug\BrowseInfo\system.xcl.rsp
+
+build E$:\Intreface\Debug\BrowseInfo\locker.pbi : INDEXER E$:\Intreface\Debug\BrowseInfo\locker.xcl |  $
+E$:\Intreface\locker.c
+  flags = -out=E$:\Intreface\Debug\BrowseInfo\locker.pbi -f E$:\Intreface\Debug\BrowseInfo\locker.xcl
+
+build E$:\Intreface\Debug\BrowseInfo\system.pbi : INDEXER E$:\Intreface\Debug\BrowseInfo\system.xcl |  $
+E$:\Intreface\system.c
+  flags = -out=E$:\Intreface\Debug\BrowseInfo\system.pbi -f E$:\Intreface\Debug\BrowseInfo\system.xcl
+
+build E$:\Intreface\Debug\BrowseInfo\fish.pbw : MAKEBROWSE E$:\Intreface\Debug\BrowseInfo\fish.pbd
+  flags = E$:\Intreface\Debug\BrowseInfo\fish.pbd -output E$:\Intreface\Debug\BrowseInfo\fish.pbw
+
+build E$:\Intreface\Debug\BrowseInfo\fish.pbd : PDBLINK E$:\Intreface\Debug\BrowseInfo\locker.pbi |  $
+E$:\Intreface\Debug\BrowseInfo\system.pbi
+  flags = -M E$:\Intreface\Debug\BrowseInfo\fish.pbd E$:\Intreface\Debug\BrowseInfo\locker.pbi E$:\Intreface\Debug\BrowseInfo\system.pbi
+
